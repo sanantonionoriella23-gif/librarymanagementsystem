@@ -69,6 +69,11 @@ namespace LibraryManagementSystem
                     btnHistory.Text = "My Borrowed Books";
                     secRecentActivity.Title = "My Current Active Loans & Due Dates";
 
+                    // Vertical positions for patron (clean top margin, no header clutter)
+                    btnDashboard.Location = new Point(12, 20);
+                    btnBooks.Location = new Point(12, 68);
+                    btnHistory.Location = new Point(12, 116);
+                    btnScanQrSidebar.Location = new Point(12, 174);
                 }
                 else if (user.Role == UserRole.Librarian)
                 {
