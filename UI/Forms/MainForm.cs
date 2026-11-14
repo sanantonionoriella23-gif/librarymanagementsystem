@@ -24,6 +24,22 @@ namespace LibraryManagementSystem
             Theme.StyleDataGridView(dgvRecent);
             Theme.StyleSecondaryButton(btnScanQrSidebar);
 
+            // Solid top bar styling with subtle bottom divider line
+            pnlTopBar.BackColor = Color.White;
+            pnlTopBar.BackgroundImage = null;
+            pnlTopBar.Paint += (s, e) =>
+            {
+                using (Pen pen = new Pen(Theme.BorderSubtle, 1))
+                {
+                    e.Graphics.DrawLine(pen, 0, pnlTopBar.Height - 1, pnlTopBar.Width, pnlTopBar.Height - 1);
+                }
+            };
+
+            // Style refresh button with smooth hover effect
+            btnRefreshStats.Cursor = Cursors.Hand;
+            btnRefreshStats.MouseEnter += (s, e) => btnRefreshStats.BackColor = Color.FromArgb(248, 187, 208);
+            btnRefreshStats.MouseLeave += (s, e) => btnRefreshStats.BackColor = Color.FromArgb(253, 237, 242);
+
             btnLogout.MouseEnter += (s, e) => btnLogout.BackColor = Color.FromArgb(254, 226, 226);
             btnLogout.MouseLeave += (s, e) => btnLogout.BackColor = Color.FromArgb(254, 242, 242);
 
@@ -49,8 +65,9 @@ namespace LibraryManagementSystem
             var user = Session.CurrentUser;
             if (user != null)
             {
-                lblCurrentUser.Text = $"{user.FullName} ({user.Username})";
-                lblUserRoleBadge.Text = Access.GetRoleBadge(user.Role);
+                // Header: Name followed by Refresh button (role badge hidden for clean solid header)
+                lblCurrentUser.Text = !string.IsNullOrWhiteSpace(user.FullName) ? user.FullName : user.Username;
+                lblUserRoleBadge.Visible = false;
 
                 // Enforce 3-Tier Hierarchy Permissions
                 btnUsers.Visible = Access.CanManageUsers(user.Role);
@@ -62,6 +79,16 @@ namespace LibraryManagementSystem
                 lblBrandTitle.Visible = false;
                 lblBrandSubtitle.Visible = false;
 
+                // Uniform button dimensions for clean visual hierarchy
+                Size navBtnSize = new Size(312, 48);
+                btnDashboard.Size = navBtnSize;
+                btnBooks.Size = navBtnSize;
+                btnBorrowReturn.Size = navBtnSize;
+                btnMembers.Size = navBtnSize;
+                btnHistory.Size = navBtnSize;
+                btnUsers.Size = navBtnSize;
+                btnScanQrSidebar.Size = new Size(312, 50);
+
                 if (user.Role == UserRole.User)
                 {
                     lblPageTitle.Text = "Student Library Portal";
@@ -70,11 +97,11 @@ namespace LibraryManagementSystem
                     btnHistory.Text = "My Borrowed Books";
                     secRecentActivity.Title = "My Current Active Loans & Due Dates";
 
-                    // Vertical positions for patron (clean top margin, no header clutter)
-                    btnDashboard.Location = new Point(12, 20);
-                    btnBooks.Location = new Point(12, 68);
-                    btnHistory.Location = new Point(12, 116);
-                    btnScanQrSidebar.Location = new Point(12, 174);
+                    // Generous vertical spacing between navigation buttons
+                    btnDashboard.Location = new Point(15, 25);
+                    btnBooks.Location = new Point(15, 87);
+                    btnHistory.Location = new Point(15, 149);
+                    btnScanQrSidebar.Location = new Point(15, 230);
                 }
                 else if (user.Role == UserRole.Librarian)
                 {
@@ -86,13 +113,13 @@ namespace LibraryManagementSystem
                     btnHistory.Text = "Transactions";
                     secRecentActivity.Title = "Circulation Desk Activity & Active Transactions";
 
-                    // Vertical positions for librarian
-                    btnDashboard.Location = new Point(12, 20);
-                    btnBooks.Location = new Point(12, 68);
-                    btnBorrowReturn.Location = new Point(12, 116);
-                    btnMembers.Location = new Point(12, 164);
-                    btnHistory.Location = new Point(12, 212);
-                    btnScanQrSidebar.Location = new Point(12, 270);
+                    // Generous vertical spacing between navigation buttons
+                    btnDashboard.Location = new Point(15, 25);
+                    btnBooks.Location = new Point(15, 87);
+                    btnBorrowReturn.Location = new Point(15, 149);
+                    btnMembers.Location = new Point(15, 211);
+                    btnHistory.Location = new Point(15, 273);
+                    btnScanQrSidebar.Location = new Point(15, 355);
                 }
                 else
                 {
@@ -105,14 +132,14 @@ namespace LibraryManagementSystem
                     btnUsers.Text = "User Management";
                     secRecentActivity.Title = "Institutional Circulation Activity & Recent Transactions";
 
-                    // Vertical positions for admin
-                    btnDashboard.Location = new Point(12, 20);
-                    btnBooks.Location = new Point(12, 68);
-                    btnBorrowReturn.Location = new Point(12, 116);
-                    btnMembers.Location = new Point(12, 164);
-                    btnHistory.Location = new Point(12, 212);
-                    btnUsers.Location = new Point(12, 260);
-                    btnScanQrSidebar.Location = new Point(12, 318);
+                    // Generous vertical spacing between navigation buttons
+                    btnDashboard.Location = new Point(15, 25);
+                    btnBooks.Location = new Point(15, 87);
+                    btnBorrowReturn.Location = new Point(15, 149);
+                    btnMembers.Location = new Point(15, 211);
+                    btnHistory.Location = new Point(15, 273);
+                    btnUsers.Location = new Point(15, 335);
+                    btnScanQrSidebar.Location = new Point(15, 415);
                 }
 
                 ConfigureDashboardLayout(user.Role);
@@ -120,7 +147,7 @@ namespace LibraryManagementSystem
             else
             {
                 lblCurrentUser.Text = "Guest";
-                lblUserRoleBadge.Text = "Unauthenticated";
+                lblUserRoleBadge.Visible = false;
             }
         }
 
