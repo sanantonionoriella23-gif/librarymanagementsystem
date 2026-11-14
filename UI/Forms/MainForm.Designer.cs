@@ -368,7 +368,7 @@ namespace LibraryManagementSystem
             // 
             // dgvRecent
             // 
-            dgvRecent.BackgroundColor = Color.White;
+            dgvRecent.BackgroundColor = Color.FromArgb(255, 224, 192);
             dgvRecent.BorderStyle = BorderStyle.None;
             dgvRecent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecent.Dock = DockStyle.Fill;
