@@ -60,13 +60,22 @@ namespace LibraryManagementSystem
             lblCurrentUser = new Label();
             lblPageTitle = new Label();
             pnlContent = new Panel();
-            tlpMetrics = new TableLayoutPanel();
+            secRecentActivity = new SectionBox();
             dgvRecent = new DataGridView();
+            tlpMetrics = new TableLayoutPanel();
+            cardTotalBooks = new CardButton();
+            cardAvailableBooks = new CardButton();
+            cardBorrowedBooks = new CardButton();
+            cardOverdueBooks = new CardButton();
+            cardTotalMembers = new CardButton();
+            cardExtra = new CardButton();
             pnlSidebar.SuspendLayout();
             pnlSidebarBottom.SuspendLayout();
             pnlTopBar.SuspendLayout();
             pnlContent.SuspendLayout();
+            secRecentActivity.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecent).BeginInit();
+            tlpMetrics.SuspendLayout();
             SuspendLayout();
             // 
             // pnlSidebar
@@ -96,7 +105,7 @@ namespace LibraryManagementSystem
             btnScanQrSidebar.FlatStyle = FlatStyle.Flat;
             btnScanQrSidebar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnScanQrSidebar.ForeColor = Color.FromArgb(173, 20, 87);
-            btnScanQrSidebar.Location = new Point(17, 530);
+            btnScanQrSidebar.Location = new Point(13, 603);
             btnScanQrSidebar.Margin = new Padding(4, 5, 4, 5);
             btnScanQrSidebar.Name = "btnScanQrSidebar";
             btnScanQrSidebar.Size = new Size(309, 67);
@@ -111,7 +120,7 @@ namespace LibraryManagementSystem
             btnUsers.FlatStyle = FlatStyle.Flat;
             btnUsers.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnUsers.ForeColor = Color.FromArgb(30, 41, 59);
-            btnUsers.Location = new Point(17, 433);
+            btnUsers.Location = new Point(17, 492);
             btnUsers.Margin = new Padding(4, 5, 4, 5);
             btnUsers.Name = "btnUsers";
             btnUsers.Padding = new Padding(23, 0, 0, 0);
@@ -128,7 +137,7 @@ namespace LibraryManagementSystem
             btnHistory.FlatStyle = FlatStyle.Flat;
             btnHistory.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnHistory.ForeColor = Color.FromArgb(30, 41, 59);
-            btnHistory.Location = new Point(17, 353);
+            btnHistory.Location = new Point(17, 397);
             btnHistory.Margin = new Padding(4, 5, 4, 5);
             btnHistory.Name = "btnHistory";
             btnHistory.Padding = new Padding(23, 0, 0, 0);
@@ -153,6 +162,7 @@ namespace LibraryManagementSystem
             btnBorrowReturn.TabIndex = 5;
             btnBorrowReturn.Text = "Borrow & Return";
             btnBorrowReturn.TextAlign = ContentAlignment.MiddleLeft;
+            btnBorrowReturn.UseMnemonic = false;
             btnBorrowReturn.UseVisualStyleBackColor = true;
             // 
             // btnMembers
@@ -162,7 +172,7 @@ namespace LibraryManagementSystem
             btnMembers.FlatStyle = FlatStyle.Flat;
             btnMembers.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnMembers.ForeColor = Color.FromArgb(30, 41, 59);
-            btnMembers.Location = new Point(17, 273);
+            btnMembers.Location = new Point(17, 295);
             btnMembers.Margin = new Padding(4, 5, 4, 5);
             btnMembers.Name = "btnMembers";
             btnMembers.Padding = new Padding(23, 0, 0, 0);
@@ -191,9 +201,8 @@ namespace LibraryManagementSystem
             // 
             // btnDashboard
             // 
-            btnDashboard.BackColor = Color.Transparent;
+            btnDashboard.BackColor = Color.White;
             btnDashboard.FlatAppearance.BorderSize = 0;
-            btnDashboard.FlatStyle = FlatStyle.Popup;
             btnDashboard.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnDashboard.ForeColor = Color.FromArgb(173, 20, 87);
             btnDashboard.Location = new Point(17, 33);
@@ -264,6 +273,7 @@ namespace LibraryManagementSystem
             // 
             pnlTopBar.BackColor = Color.White;
             pnlTopBar.BackgroundImage = Properties.Resources.lib;
+            pnlTopBar.BackgroundImageLayout = ImageLayout.Stretch;
             pnlTopBar.Controls.Add(btnRefreshStats);
             pnlTopBar.Controls.Add(lblUserRoleBadge);
             pnlTopBar.Controls.Add(lblCurrentUser);
@@ -272,9 +282,8 @@ namespace LibraryManagementSystem
             pnlTopBar.Location = new Point(343, 0);
             pnlTopBar.Margin = new Padding(4, 5, 4, 5);
             pnlTopBar.Name = "pnlTopBar";
-            pnlTopBar.Size = new Size(1371, 100);
+            pnlTopBar.Size = new Size(1371, 80);
             pnlTopBar.TabIndex = 1;
-            pnlTopBar.Visible = false;
             // 
             // btnRefreshStats
             // 
@@ -284,10 +293,10 @@ namespace LibraryManagementSystem
             btnRefreshStats.FlatStyle = FlatStyle.Flat;
             btnRefreshStats.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnRefreshStats.ForeColor = Color.FromArgb(173, 20, 87);
-            btnRefreshStats.Location = new Point(1193, 20);
+            btnRefreshStats.Location = new Point(1210, 16);
             btnRefreshStats.Margin = new Padding(4, 5, 4, 5);
             btnRefreshStats.Name = "btnRefreshStats";
-            btnRefreshStats.Size = new Size(143, 60);
+            btnRefreshStats.Size = new Size(130, 48);
             btnRefreshStats.TabIndex = 3;
             btnRefreshStats.Text = "↻ Refresh";
             btnRefreshStats.UseVisualStyleBackColor = false;
@@ -298,12 +307,12 @@ namespace LibraryManagementSystem
             lblUserRoleBadge.BackColor = Color.Transparent;
             lblUserRoleBadge.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
             lblUserRoleBadge.ForeColor = Color.FromArgb(173, 20, 87);
-            lblUserRoleBadge.Location = new Point(764, 55);
+            lblUserRoleBadge.Location = new Point(780, 44);
             lblUserRoleBadge.Margin = new Padding(4, 0, 4, 0);
             lblUserRoleBadge.Name = "lblUserRoleBadge";
-            lblUserRoleBadge.Size = new Size(400, 30);
+            lblUserRoleBadge.Size = new Size(410, 24);
             lblUserRoleBadge.TabIndex = 2;
-            lblUserRoleBadge.Text = "Role Badge";
+            lblUserRoleBadge.Text = "System Administrator";
             lblUserRoleBadge.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblCurrentUser
@@ -312,12 +321,12 @@ namespace LibraryManagementSystem
             lblCurrentUser.BackColor = Color.Transparent;
             lblCurrentUser.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblCurrentUser.ForeColor = Color.FromArgb(30, 41, 59);
-            lblCurrentUser.Location = new Point(764, 20);
+            lblCurrentUser.Location = new Point(780, 16);
             lblCurrentUser.Margin = new Padding(4, 0, 4, 0);
             lblCurrentUser.Name = "lblCurrentUser";
-            lblCurrentUser.Size = new Size(400, 33);
+            lblCurrentUser.Size = new Size(410, 26);
             lblCurrentUser.TabIndex = 1;
-            lblCurrentUser.Text = "User Name";
+            lblCurrentUser.Text = "Victoria Sterling (Admin)";
             lblCurrentUser.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblPageTitle
@@ -325,8 +334,8 @@ namespace LibraryManagementSystem
             lblPageTitle.AutoSize = true;
             lblPageTitle.BackColor = Color.Transparent;
             lblPageTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblPageTitle.ForeColor = Color.Maroon;
-            lblPageTitle.Location = new Point(31, 23);
+            lblPageTitle.ForeColor = Color.FromArgb(173, 20, 87);
+            lblPageTitle.Location = new Point(24, 18);
             lblPageTitle.Margin = new Padding(4, 0, 4, 0);
             lblPageTitle.Name = "lblPageTitle";
             lblPageTitle.Size = new Size(184, 45);
@@ -337,42 +346,165 @@ namespace LibraryManagementSystem
             // 
             pnlContent.AutoScroll = true;
             pnlContent.BackgroundImage = Properties.Resources.lib;
+            pnlContent.BackgroundImageLayout = ImageLayout.Stretch;
+            pnlContent.Controls.Add(secRecentActivity);
             pnlContent.Controls.Add(tlpMetrics);
             pnlContent.Dock = DockStyle.Fill;
-            pnlContent.Location = new Point(343, 100);
+            pnlContent.Location = new Point(343, 80);
             pnlContent.Margin = new Padding(4, 5, 4, 5);
             pnlContent.Name = "pnlContent";
-            pnlContent.Padding = new Padding(34, 40, 34, 40);
-            pnlContent.Size = new Size(1371, 1070);
+            pnlContent.Padding = new Padding(34, 25, 34, 30);
+            pnlContent.Size = new Size(1371, 1090);
             pnlContent.TabIndex = 2;
+            // 
+            // secRecentActivity
+            // 
+            secRecentActivity.BackColor = Color.White;
+            secRecentActivity.BorderRadius = 12;
+            secRecentActivity.Controls.Add(dgvRecent);
+            secRecentActivity.Dock = DockStyle.Fill;
+            secRecentActivity.HeaderColor = Color.FromArgb(173, 20, 87);
+            secRecentActivity.Location = new Point(34, 271);
+            secRecentActivity.Margin = new Padding(0);
+            secRecentActivity.Name = "secRecentActivity";
+            secRecentActivity.Padding = new Padding(16, 46, 16, 16);
+            secRecentActivity.ShowHeaderBar = true;
+            secRecentActivity.Size = new Size(1303, 789);
+            secRecentActivity.TabIndex = 1;
+            secRecentActivity.Title = "Institutional Circulation Activity & Recent Transactions";
+            // 
+            // dgvRecent
+            // 
+            dgvRecent.BackgroundColor = Color.White;
+            dgvRecent.BorderStyle = BorderStyle.None;
+            dgvRecent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRecent.Dock = DockStyle.Fill;
+            dgvRecent.Location = new Point(16, 46);
+            dgvRecent.Margin = new Padding(4, 5, 4, 5);
+            dgvRecent.Name = "dgvRecent";
+            dgvRecent.RowHeadersWidth = 50;
+            dgvRecent.Size = new Size(1271, 727);
+            dgvRecent.TabIndex = 0;
             // 
             // tlpMetrics
             // 
-            tlpMetrics.BackColor = Color.White;
+            tlpMetrics.BackColor = Color.Transparent;
             tlpMetrics.ColumnCount = 3;
             tlpMetrics.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
             tlpMetrics.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
             tlpMetrics.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.34F));
+            tlpMetrics.Controls.Add(cardTotalBooks, 0, 0);
+            tlpMetrics.Controls.Add(cardAvailableBooks, 1, 0);
+            tlpMetrics.Controls.Add(cardBorrowedBooks, 2, 0);
+            tlpMetrics.Controls.Add(cardOverdueBooks, 0, 1);
+            tlpMetrics.Controls.Add(cardTotalMembers, 1, 1);
+            tlpMetrics.Controls.Add(cardExtra, 2, 1);
             tlpMetrics.Dock = DockStyle.Top;
-            tlpMetrics.Location = new Point(34, 40);
-            tlpMetrics.Margin = new Padding(4, 5, 4, 5);
+            tlpMetrics.Location = new Point(34, 25);
+            tlpMetrics.Margin = new Padding(0);
             tlpMetrics.Name = "tlpMetrics";
+            tlpMetrics.Padding = new Padding(0, 0, 0, 16);
             tlpMetrics.RowCount = 2;
-            tlpMetrics.RowStyles.Add(new RowStyle(SizeType.Absolute, 192F));
-            tlpMetrics.RowStyles.Add(new RowStyle(SizeType.Absolute, 192F));
-            tlpMetrics.Size = new Size(1303, 392);
+            tlpMetrics.RowStyles.Add(new RowStyle(SizeType.Absolute, 115F));
+            tlpMetrics.RowStyles.Add(new RowStyle(SizeType.Absolute, 115F));
+            tlpMetrics.Size = new Size(1303, 246);
             tlpMetrics.TabIndex = 0;
             // 
-            // dgvRecent
+            // cardTotalBooks
             // 
-            dgvRecent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRecent.Dock = DockStyle.Fill;
-            dgvRecent.Location = new Point(23, 87);
-            dgvRecent.Margin = new Padding(4, 5, 4, 5);
-            dgvRecent.Name = "dgvRecent";
-            dgvRecent.RowHeadersWidth = 62;
-            dgvRecent.Size = new Size(1257, 484);
-            dgvRecent.TabIndex = 0;
+            cardTotalBooks.AccentColor = Color.FromArgb(216, 27, 96);
+            cardTotalBooks.BackColor = Color.White;
+            cardTotalBooks.BorderRadius = 12;
+            cardTotalBooks.Dock = DockStyle.Fill;
+            cardTotalBooks.IconName = "books";
+            cardTotalBooks.Location = new Point(8, 8);
+            cardTotalBooks.Margin = new Padding(8);
+            cardTotalBooks.Name = "cardTotalBooks";
+            cardTotalBooks.Size = new Size(418, 99);
+            cardTotalBooks.Subtitle = "Complete catalog volume";
+            cardTotalBooks.TabIndex = 0;
+            cardTotalBooks.Title = "TOTAL VOLUMES";
+            cardTotalBooks.Value = "0";
+            // 
+            // cardAvailableBooks
+            // 
+            cardAvailableBooks.AccentColor = Color.FromArgb(22, 101, 52);
+            cardAvailableBooks.BackColor = Color.White;
+            cardAvailableBooks.BorderRadius = 12;
+            cardAvailableBooks.Dock = DockStyle.Fill;
+            cardAvailableBooks.IconName = "books";
+            cardAvailableBooks.Location = new Point(442, 8);
+            cardAvailableBooks.Margin = new Padding(8);
+            cardAvailableBooks.Name = "cardAvailableBooks";
+            cardAvailableBooks.Size = new Size(418, 99);
+            cardAvailableBooks.Subtitle = "Ready on library shelves";
+            cardAvailableBooks.TabIndex = 1;
+            cardAvailableBooks.Title = "SHELF AVAILABLE";
+            cardAvailableBooks.Value = "0";
+            // 
+            // cardBorrowedBooks
+            // 
+            cardBorrowedBooks.AccentColor = Color.FromArgb(233, 30, 99);
+            cardBorrowedBooks.BackColor = Color.White;
+            cardBorrowedBooks.BorderRadius = 12;
+            cardBorrowedBooks.Dock = DockStyle.Fill;
+            cardBorrowedBooks.IconName = "borrowreturn";
+            cardBorrowedBooks.Location = new Point(876, 8);
+            cardBorrowedBooks.Margin = new Padding(8);
+            cardBorrowedBooks.Name = "cardBorrowedBooks";
+            cardBorrowedBooks.Size = new Size(419, 99);
+            cardBorrowedBooks.Subtitle = "Active loans checked out";
+            cardBorrowedBooks.TabIndex = 2;
+            cardBorrowedBooks.Title = "ON CIRCULATION";
+            cardBorrowedBooks.Value = "0";
+            // 
+            // cardOverdueBooks
+            // 
+            cardOverdueBooks.AccentColor = Color.FromArgb(185, 28, 28);
+            cardOverdueBooks.BackColor = Color.White;
+            cardOverdueBooks.BorderRadius = 12;
+            cardOverdueBooks.Dock = DockStyle.Fill;
+            cardOverdueBooks.IconName = "warning";
+            cardOverdueBooks.Location = new Point(8, 123);
+            cardOverdueBooks.Margin = new Padding(8);
+            cardOverdueBooks.Name = "cardOverdueBooks";
+            cardOverdueBooks.Size = new Size(418, 99);
+            cardOverdueBooks.Subtitle = "Requires return follow-up";
+            cardOverdueBooks.TabIndex = 3;
+            cardOverdueBooks.Title = "OVERDUE BOOKS";
+            cardOverdueBooks.Value = "0";
+            // 
+            // cardTotalMembers
+            // 
+            cardTotalMembers.AccentColor = Color.FromArgb(173, 20, 87);
+            cardTotalMembers.BackColor = Color.White;
+            cardTotalMembers.BorderRadius = 12;
+            cardTotalMembers.Dock = DockStyle.Fill;
+            cardTotalMembers.IconName = "members";
+            cardTotalMembers.Location = new Point(442, 123);
+            cardTotalMembers.Margin = new Padding(8);
+            cardTotalMembers.Name = "cardTotalMembers";
+            cardTotalMembers.Size = new Size(418, 99);
+            cardTotalMembers.Subtitle = "Students and faculty";
+            cardTotalMembers.TabIndex = 4;
+            cardTotalMembers.Title = "REGISTERED PATRONS";
+            cardTotalMembers.Value = "0";
+            // 
+            // cardExtra
+            // 
+            cardExtra.AccentColor = Color.FromArgb(79, 70, 229);
+            cardExtra.BackColor = Color.White;
+            cardExtra.BorderRadius = 12;
+            cardExtra.Dock = DockStyle.Fill;
+            cardExtra.IconName = "members";
+            cardExtra.Location = new Point(876, 123);
+            cardExtra.Margin = new Padding(8);
+            cardExtra.Name = "cardExtra";
+            cardExtra.Size = new Size(419, 99);
+            cardExtra.Subtitle = "Admin & staff accounts";
+            cardExtra.TabIndex = 5;
+            cardExtra.Title = "SYSTEM USERS";
+            cardExtra.Value = "0";
             // 
             // MainForm
             // 
@@ -394,7 +526,9 @@ namespace LibraryManagementSystem
             pnlTopBar.ResumeLayout(false);
             pnlTopBar.PerformLayout();
             pnlContent.ResumeLayout(false);
+            secRecentActivity.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvRecent).EndInit();
+            tlpMetrics.ResumeLayout(false);
             ResumeLayout(false);
         }
     }

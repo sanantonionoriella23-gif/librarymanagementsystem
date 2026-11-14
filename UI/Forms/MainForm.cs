@@ -58,12 +58,13 @@ namespace LibraryManagementSystem
                 btnBorrowReturn.Visible = Access.CanIssueAndReturn(user.Role);
 
                 // Header titles hidden per user request; sidebar starts directly with navigation
-                pnlTopBar.Visible = false;
+                pnlTopBar.Visible = true;
                 lblBrandTitle.Visible = false;
                 lblBrandSubtitle.Visible = false;
 
                 if (user.Role == UserRole.User)
                 {
+                    lblPageTitle.Text = "Student Library Portal";
                     btnDashboard.Text = "Dashboard";
                     btnBooks.Text = "Borrow Books";
                     btnHistory.Text = "My Borrowed Books";
