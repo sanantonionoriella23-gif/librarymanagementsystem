@@ -109,7 +109,7 @@ namespace LibraryManagementSystem
                     else if (string.Equals(prop, "IssueDate", StringComparison.OrdinalIgnoreCase))
                         col.HeaderText = "Issued Date";
                     else if (string.Equals(prop, "DueDate", StringComparison.OrdinalIgnoreCase))
-                        col.HeaderText = "Due Date";
+                        col.HeaderText = "Overdue Date";
                     else if (string.Equals(prop, "ReturnDate", StringComparison.OrdinalIgnoreCase))
                         col.HeaderText = "Returned Date";
                     else if (string.Equals(prop, "Status", StringComparison.OrdinalIgnoreCase))
@@ -124,7 +124,7 @@ namespace LibraryManagementSystem
                 int overdue = list.Count(t => t.Status == "Overdue");
                 int returned = list.Count(t => t.Status == "Returned");
 
-                lblSummaryInfo.Text = $"Total Transactions: {total:N0}   |   Active Loans: {active:N0}   |   Overdue: {overdue:N0}   |   Returned: {returned:N0}";
+                lblSummaryInfo.Text = $"Total Transactions: {total:N0}   |   Currently Borrowed: {active:N0}   |   Overdue: {overdue:N0}   |   Returned: {returned:N0}";
             }
             catch (Exception ex)
             {

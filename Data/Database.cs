@@ -588,7 +588,7 @@ namespace LibraryManagementSystem
 
        
 
-        public static (bool Success, string Message) IssueBook(int bookId, int memberId, int userId, int loanDays = 14, string notes = "")
+        public static (bool Success, string Message) IssueBook(int bookId, int memberId, int userId, int loanDays = 14, string notes = "", DateTime? customDueDate = null)
         {
             using (var conn = GetConnection())
             using (var transaction = conn.BeginTransaction())
@@ -635,7 +635,7 @@ namespace LibraryManagementSystem
                    
                     string trxCode = $"TRX-{DateTime.Now:yyyyMMdd}-{Guid.NewGuid().ToString().Substring(0, 4).ToUpper()}";
                     DateTime issueDate = DateTime.Now;
-                    DateTime dueDate = issueDate.AddDays(loanDays);
+                    DateTime dueDate = customDueDate ?? issueDate.AddDays(loanDays);
 
                     using (var insertTrx = conn.CreateCommand())
                     {
@@ -654,12 +654,12 @@ namespace LibraryManagementSystem
                     }
 
                     transaction.Commit();
-                    return (true, $"Book successfully issued! Due date: {dueDate:MMM dd, yyyy}.");
+                    return (true, $"Book successfully borrowed! Overdue date: {dueDate:MMM dd, yyyy}.");
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    return (false, "Error issuing book: " + ex.Message);
+                    return (false, "Error borrowing book: " + ex.Message);
                 }
             }
         }

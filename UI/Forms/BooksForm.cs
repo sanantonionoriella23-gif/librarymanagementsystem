@@ -474,7 +474,7 @@ namespace LibraryManagementSystem
                 return;
             }
 
-            if (MessageBox.Show($"Confirm loan request:\n\n📖 \"{book.Title}\"\nAuthor: {book.Author}\nISBN: {book.ISBN}\nShelf Location: {book.ShelfLocation}\n\nStandard student loan period is 14 days (Due: {DateTime.Now.AddDays(14):MMMM dd, yyyy}).\n\nWould you like to borrow this book?", "Confirm Book Borrowing", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            if (MessageBox.Show($"Confirm borrow request:\n\n📖 \"{book.Title}\"\nAuthor: {book.Author}\nISBN: {book.ISBN}\nShelf Location: {book.ShelfLocation}\n\nOverdue Date: {DateTime.Now.AddDays(14):MMMM dd, yyyy}\n\nWould you like to borrow this book?", "Confirm Book Borrowing", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
             {
                 return;
             }
@@ -484,7 +484,7 @@ namespace LibraryManagementSystem
 
             if (success)
             {
-                MessageBox.Show($"Success! You have borrowed \"{book.Title}\".\n\nOfficial Due Date: {DateTime.Now.AddDays(14):MMMM dd, yyyy}\n\nThis book is now listed in 'My Current Active Loans & Due Dates' on your dashboard.", "Book Borrowed Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Success! You have borrowed \"{book.Title}\".\n\nOverdue Date: {DateTime.Now.AddDays(14):MMMM dd, yyyy}\n\nThis book is now listed in 'My Borrowed Books' on your dashboard.", "Book Borrowed Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadBooks();
                 var updated = Database.GetBookById(book.Id);
                 if (updated != null) PopulateFields(updated);

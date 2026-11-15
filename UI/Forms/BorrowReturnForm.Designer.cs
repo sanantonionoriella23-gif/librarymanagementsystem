@@ -48,8 +48,8 @@
             txtIssueIsbn = new TextBox();
             btnFindBook = new Button();
             lblBookInfo = new Label();
-            lblDays = new Label();
-            numDays = new NumericUpDown();
+            lblOverdueDate = new Label();
+            dtpOverdueDate = new DateTimePicker();
             lblDueDatePreview = new Label();
             lblIssueNotes = new Label();
             txtIssueNotes = new TextBox();
@@ -62,7 +62,6 @@
             secReturnDetails.SuspendLayout();
             tabIssue.SuspendLayout();
             secIssue.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numDays).BeginInit();
             tabCirculation.SuspendLayout();
             SuspendLayout();
             // 
@@ -104,9 +103,9 @@
             lblTitle.Location = new Point(454, 35);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(541, 45);
+            lblTitle.Size = new Size(350, 45);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Circulation Desk: Borrow && Return";
+            lblTitle.Text = "Borrow && Return";
             // 
             // tabReturn
             // 
@@ -145,7 +144,7 @@
             lblReturnSearch.Name = "lblReturnSearch";
             lblReturnSearch.Size = new Size(192, 25);
             lblReturnSearch.TabIndex = 0;
-            lblReturnSearch.Text = "\u008d Search Active Loans:";
+            lblReturnSearch.Text = "Search Borrowed Books:";
             // 
             // txtReturnSearch
             // 
@@ -269,9 +268,9 @@
             lblRetDue.Location = new Point(29, 445);
             lblRetDue.Margin = new Padding(4, 0, 4, 0);
             lblRetDue.Name = "lblRetDue";
-            lblRetDue.Size = new Size(90, 23);
+            lblRetDue.Size = new Size(125, 23);
             lblRetDue.TabIndex = 6;
-            lblRetDue.Text = "Due Date:";
+            lblRetDue.Text = "Overdue Date:";
             // 
             // txtRetDue
             // 
@@ -316,7 +315,7 @@
             btnProcessReturn.Name = "btnProcessReturn";
             btnProcessReturn.Size = new Size(537, 70);
             btnProcessReturn.TabIndex = 14;
-            btnProcessReturn.Text = "Complete Return && Update Inventory";
+            btnProcessReturn.Text = "Complete Return";
             btnProcessReturn.UseVisualStyleBackColor = false;
             // 
             // tabIssue
@@ -340,8 +339,8 @@
             secIssue.Controls.Add(txtIssueNotes);
             secIssue.Controls.Add(lblIssueNotes);
             secIssue.Controls.Add(lblDueDatePreview);
-            secIssue.Controls.Add(numDays);
-            secIssue.Controls.Add(lblDays);
+            secIssue.Controls.Add(dtpOverdueDate);
+            secIssue.Controls.Add(lblOverdueDate);
             secIssue.Controls.Add(lblBookInfo);
             secIssue.Controls.Add(btnFindBook);
             secIssue.Controls.Add(txtIssueIsbn);
@@ -358,7 +357,7 @@
             secIssue.ShowHeaderBar = true;
             secIssue.Size = new Size(1043, 933);
             secIssue.TabIndex = 0;
-            secIssue.Title = "Issue Book to Registered Member";
+            secIssue.Title = "Borrow Book to Registered Member";
             // 
             // lblIssueMember
             // 
@@ -460,41 +459,39 @@
             lblBookInfo.TabIndex = 7;
             lblBookInfo.Text = "No book selected. Enter ISBN and click Verify.";
             // 
-            // lblDays
+            // lblOverdueDate
             // 
-            lblDays.AutoSize = true;
-            lblDays.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblDays.ForeColor = Color.FromArgb(43, 45, 66);
-            lblDays.Location = new Point(43, 525);
-            lblDays.Margin = new Padding(4, 0, 4, 0);
-            lblDays.Name = "lblDays";
-            lblDays.Size = new Size(177, 25);
-            lblDays.TabIndex = 8;
-            lblDays.Text = "Loan Period (Days):";
+            lblOverdueDate.AutoSize = true;
+            lblOverdueDate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblOverdueDate.ForeColor = Color.FromArgb(43, 45, 66);
+            lblOverdueDate.Location = new Point(43, 525);
+            lblOverdueDate.Margin = new Padding(4, 0, 4, 0);
+            lblOverdueDate.Name = "lblOverdueDate";
+            lblOverdueDate.Size = new Size(135, 25);
+            lblOverdueDate.TabIndex = 8;
+            lblOverdueDate.Text = "Overdue Date:";
             // 
-            // numDays
+            // dtpOverdueDate
             // 
-            numDays.Font = new Font("Segoe UI", 10F);
-            numDays.Location = new Point(43, 560);
-            numDays.Margin = new Padding(4, 5, 4, 5);
-            numDays.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
-            numDays.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            numDays.Name = "numDays";
-            numDays.Size = new Size(229, 34);
-            numDays.TabIndex = 9;
-            numDays.Value = new decimal(new int[] { 14, 0, 0, 0 });
+            dtpOverdueDate.Font = new Font("Segoe UI", 10F);
+            dtpOverdueDate.Format = DateTimePickerFormat.Short;
+            dtpOverdueDate.Location = new Point(43, 560);
+            dtpOverdueDate.Margin = new Padding(4, 5, 4, 5);
+            dtpOverdueDate.Name = "dtpOverdueDate";
+            dtpOverdueDate.Size = new Size(240, 34);
+            dtpOverdueDate.TabIndex = 9;
             // 
             // lblDueDatePreview
             // 
             lblDueDatePreview.AutoSize = true;
             lblDueDatePreview.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             lblDueDatePreview.ForeColor = Color.FromArgb(46, 125, 50);
-            lblDueDatePreview.Location = new Point(314, 567);
+            lblDueDatePreview.Location = new Point(314, 565);
             lblDueDatePreview.Margin = new Padding(4, 0, 4, 0);
             lblDueDatePreview.Name = "lblDueDatePreview";
-            lblDueDatePreview.Size = new Size(176, 25);
+            lblDueDatePreview.Size = new Size(210, 25);
             lblDueDatePreview.TabIndex = 10;
-            lblDueDatePreview.Text = "Due: Nov 22, 2026";
+            lblDueDatePreview.Text = "(Standard 14 days)";
             // 
             // lblIssueNotes
             // 
@@ -515,7 +512,7 @@
             txtIssueNotes.Margin = new Padding(4, 5, 4, 5);
             txtIssueNotes.Multiline = true;
             txtIssueNotes.Name = "txtIssueNotes";
-            txtIssueNotes.PlaceholderText = "Optional loan notes or conditions...";
+            txtIssueNotes.PlaceholderText = "Optional notes...";
             txtIssueNotes.Size = new Size(955, 89);
             txtIssueNotes.TabIndex = 12;
             // 
@@ -530,7 +527,7 @@
             btnIssueConfirm.Name = "btnIssueConfirm";
             btnIssueConfirm.Size = new Size(957, 73);
             btnIssueConfirm.TabIndex = 13;
-            btnIssueConfirm.Text = "Confirm Loan && Issue Book";
+            btnIssueConfirm.Text = "Confirm Borrow Book";
             btnIssueConfirm.UseVisualStyleBackColor = false;
             // 
             // tabCirculation
@@ -570,7 +567,6 @@
             tabIssue.ResumeLayout(false);
             secIssue.ResumeLayout(false);
             secIssue.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numDays).EndInit();
             tabCirculation.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -597,8 +593,8 @@
         private TextBox txtIssueNotes;
         private Label lblIssueNotes;
         private Label lblDueDatePreview;
-        private NumericUpDown numDays;
-        private Label lblDays;
+        private DateTimePicker dtpOverdueDate;
+        private Label lblOverdueDate;
         private Label lblBookInfo;
         private Button btnFindBook;
         private TextBox txtIssueIsbn;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -95,7 +95,7 @@ namespace LibraryManagementSystem
                     btnDashboard.Text = "Dashboard";
                     btnBooks.Text = "Borrow Books";
                     btnHistory.Text = "My Borrowed Books";
-                    secRecentActivity.Title = "My Current Active Loans & Due Dates";
+                    secRecentActivity.Title = "My Borrowed Books & Overdue Dates";
 
                     // Generous vertical spacing between navigation buttons
                     btnDashboard.Location = new Point(15, 25);
@@ -111,7 +111,7 @@ namespace LibraryManagementSystem
                     btnBorrowReturn.Text = "Borrow & Return";
                     btnMembers.Text = "Members";
                     btnHistory.Text = "Transactions";
-                    secRecentActivity.Title = "Circulation Desk Activity & Active Transactions";
+                    secRecentActivity.Title = "Circulation Activity & Recent Transactions";
 
                     // Generous vertical spacing between navigation buttons
                     btnDashboard.Location = new Point(15, 25);
@@ -130,7 +130,7 @@ namespace LibraryManagementSystem
                     btnMembers.Text = "Members";
                     btnHistory.Text = "Transactions";
                     btnUsers.Text = "User Management";
-                    secRecentActivity.Title = "Institutional Circulation Activity & Recent Transactions";
+                    secRecentActivity.Title = "Circulation Activity & Recent Transactions";
 
                     // Generous vertical spacing between navigation buttons
                     btnDashboard.Location = new Point(15, 25);
@@ -273,7 +273,7 @@ namespace LibraryManagementSystem
                 cardAvailableBooks.AccentColor = Color.FromArgb(22, 101, 52);
 
                 cardBorrowedBooks.Title = "ON CIRCULATION";
-                cardBorrowedBooks.Subtitle = "Active loans checked out";
+                cardBorrowedBooks.Subtitle = "Books currently borrowed";
                 cardBorrowedBooks.IconName = "borrowreturn";
                 cardBorrowedBooks.AccentColor = Color.FromArgb(233, 30, 99);
 
@@ -320,7 +320,7 @@ namespace LibraryManagementSystem
                     cardTotalBooks.Subtitle = userStats.MyBorrowedBooks == 1 ? "1 book currently checked out" : $"{userStats.MyBorrowedBooks} books currently checked out";
 
                     cardAvailableBooks.Value = userStats.MyOverdueBooks.ToString("N0");
-                    cardAvailableBooks.Subtitle = userStats.MyOverdueBooks > 0 ? "Requires return to library" : "All loans within due date";
+                    cardAvailableBooks.Subtitle = userStats.MyOverdueBooks > 0 ? "Requires return to library" : "All books within overdue date";
                     cardAvailableBooks.AccentColor = userStats.MyOverdueBooks > 0 ? Theme.Danger : Theme.Success;
 
                     cardBorrowedBooks.Value = userStats.MyTotalHistory.ToString("N0");
@@ -419,7 +419,7 @@ namespace LibraryManagementSystem
                     }
                     else if (string.Equals(prop, "DueDate", StringComparison.OrdinalIgnoreCase))
                     {
-                        col.HeaderText = "Due Date";
+                        col.HeaderText = "Overdue Date";
                         col.Width = isStudent ? 140 : 120;
                     }
                     else if (string.Equals(prop, "ReturnDate", StringComparison.OrdinalIgnoreCase))

@@ -112,6 +112,6 @@ VALUES
 
 INSERT OR IGNORE INTO Transactions (TransactionCode, BookId, MemberId, IssuedByUserId, IssueDate, DueDate, ReturnDate, Status, FineAmount, FinePaid, Notes)
 VALUES
-('TRX-2026-0001', 1, 1, 1, date('now', '-10 days'), date('now', '+4 days'), NULL, 'Borrowed', 0.0, 0.0, 'Regular student loan'),
-('TRX-2026-0002', 2, 2, 2, date('now', '-20 days'), date('now', '-6 days'), NULL, 'Overdue', 0.0, 0.0, 'Overdue loan'),
-('TRX-2026-0003', 6, 3, 2, date('now', '-30 days'), date('now', '-16 days'), date('now', '-15 days'), 'Returned', 0.0, 0.0, 'Completed loan return');
+('TRX-2026-0001', 1, 1, 1, date('now', '-10 days'), date('now', '+4 days'), NULL, 'Borrowed', 0.0, 0.0, 'Borrowed book'),
+('TRX-2026-0002', 2, 2, 2, date('now', '-20 days'), date('now', '-6 days'), NULL, 'Overdue', 0.0, 0.0, 'Overdue book'),
+('TRX-2026-0003', 6, 3, 2, date('now', '-30 days'), date('now', '-16 days'), date('now', '-15 days'), 'Returned', 0.0, 0.0, 'Returned book');

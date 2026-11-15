@@ -368,7 +368,7 @@ namespace LibraryManagementSystem
             // 
             // dgvRecent
             // 
-            dgvRecent.BackgroundColor = Color.FromArgb(255, 224, 192);
+            dgvRecent.BackgroundColor = Color.White;
             dgvRecent.BorderStyle = BorderStyle.None;
             dgvRecent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecent.Dock = DockStyle.Fill;
@@ -446,7 +446,7 @@ namespace LibraryManagementSystem
             cardBorrowedBooks.Margin = new Padding(8);
             cardBorrowedBooks.Name = "cardBorrowedBooks";
             cardBorrowedBooks.Size = new Size(419, 99);
-            cardBorrowedBooks.Subtitle = "Active loans checked out";
+            cardBorrowedBooks.Subtitle = "Books currently borrowed";
             cardBorrowedBooks.TabIndex = 2;
             cardBorrowedBooks.Title = "ON CIRCULATION";
             cardBorrowedBooks.Value = "0";

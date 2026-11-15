@@ -6,7 +6,7 @@ namespace LibraryManagementSystem
     /// Role-Based Access Control (RBAC) engine for the 3-tier hierarchy:
     /// 1. Admin: Full system control, user accounts, audit trails, and configuration.
     /// 2. Librarian: Operational control over book catalog, members, circulation desk.
-    /// 3. User (Patron): Self-service catalog browsing, viewing personal loans and QR card.
+    /// 3. User (Patron): Self-service catalog browsing, viewing borrowed books and QR card.
     /// </summary>
     public static class Access
     {

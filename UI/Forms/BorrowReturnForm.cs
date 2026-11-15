@@ -20,6 +20,7 @@ namespace LibraryManagementSystem
 
             Load += (s, e) =>
             {
+                dtpOverdueDate.Value = DateTime.Today.AddDays(14);
                 UpdateDueDatePreview();
                 LoadActiveLoans();
             };
@@ -53,7 +54,7 @@ namespace LibraryManagementSystem
             btnFindBook.Click += (s, e) => VerifyBook();
             txtIssueIsbn.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) VerifyBook(); };
 
-            numDays.ValueChanged += (s, e) => UpdateDueDatePreview();
+            dtpOverdueDate.ValueChanged += (s, e) => UpdateDueDatePreview();
             btnIssueConfirm.Click += (s, e) => PerformIssueBook();
 
             // Return Tab Events
@@ -70,8 +71,14 @@ namespace LibraryManagementSystem
 
         private void UpdateDueDatePreview()
         {
-            DateTime due = DateTime.Now.AddDays((double)numDays.Value);
-            lblDueDatePreview.Text = $"Calculated Due Date: {due:MMM dd, yyyy}";
+            DateTime due = dtpOverdueDate.Value;
+            int days = (int)(due.Date - DateTime.Today).TotalDays;
+            if (days > 0)
+                lblDueDatePreview.Text = $"({days} days until overdue)";
+            else if (days == 0)
+                lblDueDatePreview.Text = "(Overdue today)";
+            else
+                lblDueDatePreview.Text = $"({Math.Abs(days)} days overdue)";
         }
 
         private void VerifyMember()
@@ -133,45 +140,39 @@ namespace LibraryManagementSystem
         {
             if (_verifiedMember == null)
             {
-                MessageBox.Show("Please verify a valid member before issuing.", "Verification Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please verify a valid member before borrowing.", "Verification Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtIssueMemberCode.Focus();
                 return;
             }
 
             if (_verifiedBook == null)
             {
-                MessageBox.Show("Please verify a valid book before issuing.", "Verification Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please verify a valid book before borrowing.", "Verification Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtIssueIsbn.Focus();
                 return;
             }
 
             int userId = Session.CurrentUser?.Id ?? 1;
-            int days = (int)numDays.Value;
+            DateTime dueDate = dtpOverdueDate.Value.Date;
+            int days = Math.Max(1, (int)(dueDate - DateTime.Today).TotalDays);
             string notes = txtIssueNotes.Text.Trim();
 
-            // Cache data for slip generation
             string memberName = _verifiedMember.FullName;
-            string memberCode = _verifiedMember.MemberCode;
             string bookTitle = _verifiedBook.Title;
-            string isbn = _verifiedBook.ISBN;
-            string shelf = _verifiedBook.ShelfLocation;
-            DateTime dueDate = DateTime.Now.AddDays(days);
 
-            var (success, message) = Database.IssueBook(_verifiedBook.Id, _verifiedMember.Id, userId, days, notes);
+            var (success, message) = Database.IssueBook(_verifiedBook.Id, _verifiedMember.Id, userId, days, notes, dueDate);
             if (success)
             {
-                // Offer circulation receipt
-                if (MessageBox.Show($"{message}\n\nWould you like to print/save the official University Circulation Loan Slip?", "Loan Issued", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    GenerateCirculationSlip(memberName, memberCode, bookTitle, isbn, shelf, dueDate);
-                }
-                
+                MessageBox.Show($"Success! '{bookTitle}' has been borrowed by {memberName}.\n\nOverdue Date: {dueDate:MMMM dd, yyyy}", "Book Borrowed Successfully", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 // Clear inputs
                 _verifiedMember = null;
                 _verifiedBook = null;
                 txtIssueMemberCode.Clear();
                 txtIssueIsbn.Clear();
                 txtIssueNotes.Clear();
+                dtpOverdueDate.Value = DateTime.Today.AddDays(14);
+                UpdateDueDatePreview();
                 lblMemberInfo.Text = "No member selected. Enter Member Code and click Verify.";
                 lblMemberInfo.ForeColor = Theme.TextSecondary;
                 lblBookInfo.Text = "No book selected. Enter ISBN and click Verify.";
@@ -181,105 +182,7 @@ namespace LibraryManagementSystem
             }
             else
             {
-                MessageBox.Show(message, "Issue Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void GenerateCirculationSlip(string memberName, string memberCode, string bookTitle, string isbn, string shelf, DateTime dueDate)
-        {
-            int width = 380;
-            int height = 500;
-            Bitmap slip = new Bitmap(width, height);
-
-            using (Graphics g = Graphics.FromImage(slip))
-            {
-                g.Clear(Color.White);
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-
-                using (Pen borderPen = new Pen(Theme.PrimaryDark, 2))
-                {
-                    g.DrawRectangle(borderPen, 6, 6, width - 12, height - 12);
-                }
-
-                // Header
-                using (SolidBrush headerBg = new SolidBrush(Theme.PrimaryLight))
-                {
-                    g.FillRectangle(headerBg, 8, 8, width - 16, 55);
-                }
-
-                using (Font uFont = new Font("Segoe UI", 10F, FontStyle.Bold))
-                using (SolidBrush pinkBrush = new SolidBrush(Theme.PrimaryDark))
-                {
-                    g.DrawString("ATHENA STATE UNIVERSITY", uFont, pinkBrush, new PointF(18, 14));
-                }
-
-                using (Font subFont = new Font("Segoe UI", 7.5F))
-                using (SolidBrush subBrush = new SolidBrush(Theme.TextSecondary))
-                {
-                    g.DrawString("CIRCULATION DESK • OFFICIAL DATE-DUE SLIP", subFont, subBrush, new PointF(18, 34));
-                }
-
-                // Borrower Info
-                int y = 75;
-                using (Font lblF = new Font("Segoe UI", 8F, FontStyle.Bold))
-                using (Font valF = new Font("Segoe UI", 9F))
-                using (SolidBrush darkB = new SolidBrush(Theme.TextPrimary))
-                using (SolidBrush mutB = new SolidBrush(Theme.TextSecondary))
-                {
-                    g.DrawString("BORROWER:", lblF, mutB, 18, y);
-                    g.DrawString($"{memberName} ({memberCode})", valF, darkB, 18, y + 16);
-
-                    y += 42;
-                    g.DrawString("BOOK TITLE:", lblF, mutB, 18, y);
-                    g.DrawString(bookTitle, valF, darkB, new RectangleF(18, y + 16, width - 36, 38));
-
-                    y += 56;
-                    g.DrawString($"ISBN: {isbn}   |   CALL NO: {shelf}", lblF, darkB, 18, y);
-
-                    // Due Date Box
-                    y += 30;
-                    Rectangle dueBox = new Rectangle(18, y, width - 36, 75);
-                    using (SolidBrush dueBg = new SolidBrush(Color.FromArgb(254, 250, 252)))
-                    using (Pen duePen = new Pen(Theme.PrimaryDark, 2))
-                    {
-                        g.FillRectangle(dueBg, dueBox);
-                        g.DrawRectangle(duePen, dueBox);
-                    }
-
-                    using (Font dueLblF = new Font("Segoe UI", 8F, FontStyle.Bold))
-                    using (SolidBrush redB = new SolidBrush(Theme.Danger))
-                    {
-                        g.DrawString("OFFICIAL DATE TO RETURN (DUE DATE):", dueLblF, redB, 26, y + 10);
-                    }
-
-                    using (Font dateF = new Font("Segoe UI", 16F, FontStyle.Bold))
-                    {
-                        g.DrawString(dueDate.ToString("MMMM dd, yyyy"), dateF, darkB, 26, y + 30);
-                    }
-
-                    // QR Code of Transaction
-                    y += 90;
-                    Bitmap qr = QrCodes.GenerateQrCode($"LOAN:{memberCode}:{isbn}:{dueDate:yyyyMMdd}", 3);
-                    g.DrawImage(qr, (width - 100) / 2, y, 100, 100);
-
-                    // Policy footer
-                    y += 110;
-                    using (Font footF = new Font("Segoe UI", 7F))
-                    {
-                        g.DrawString("Books must be returned or renewed on or before the due date.", footF, mutB, 18, y);
-                    }
-                }
-            }
-
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "PNG Image (*.png)|*.png";
-                sfd.FileName = $"LOAN_SLIP_{memberCode}_{DateTime.Now:MMdd_HHmm}.png";
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    slip.Save(sfd.FileName, ImageFormat.Png);
-                    MessageBox.Show("Circulation loan slip saved to:\n" + sfd.FileName, "Loan Slip Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show(message, "Borrow Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -291,7 +194,7 @@ namespace LibraryManagementSystem
                 string search = txtReturnSearch.Text.Trim();
                 var all = Database.GetTransactions(search) ?? new System.Collections.Generic.List<TransactionDetailView>();
 
-                // Filter for active loans only (Borrowed or Overdue)
+                // Filter for active records only (Borrowed or Overdue)
                 var activeLoans = all.FindAll(t => t != null && (t.Status == "Borrowed" || t.Status == "Overdue"));
                 dgvActiveLoans.DataSource = null;
                 dgvActiveLoans.DataSource = activeLoans;
@@ -327,7 +230,7 @@ namespace LibraryManagementSystem
                     }
                     else if (string.Equals(prop, "DueDate", StringComparison.OrdinalIgnoreCase))
                     {
-                        col.HeaderText = "Due Date";
+                        col.HeaderText = "Overdue Date";
                         col.Width = 130;
                     }
                     else if (string.Equals(prop, "Status", StringComparison.OrdinalIgnoreCase))
@@ -356,7 +259,7 @@ namespace LibraryManagementSystem
         {
             if (_selectedReturnTrxId <= 0)
             {
-                MessageBox.Show("Please select an active loan from the list to return.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please select a borrowed book from the list to return.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
