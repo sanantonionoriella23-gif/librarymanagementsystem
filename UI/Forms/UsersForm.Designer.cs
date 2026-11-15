@@ -24,7 +24,6 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button btnResetPassword;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Label lblRoleGuide;
 
         protected override void Dispose(bool disposing)
         {
@@ -42,7 +41,6 @@ namespace LibraryManagementSystem
             lblTitle = new Label();
             dgvUsers = new DataGridView();
             secUserDetails = new SectionBox();
-            lblRoleGuide = new Label();
             btnClear = new Button();
             btnDelete = new Button();
             btnResetPassword = new Button();
@@ -124,7 +122,6 @@ namespace LibraryManagementSystem
             secUserDetails.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             secUserDetails.BackColor = Color.White;
             secUserDetails.BorderRadius = 12;
-            secUserDetails.Controls.Add(lblRoleGuide);
             secUserDetails.Controls.Add(btnClear);
             secUserDetails.Controls.Add(btnDelete);
             secUserDetails.Controls.Add(btnResetPassword);
@@ -151,21 +148,6 @@ namespace LibraryManagementSystem
             secUserDetails.TabIndex = 2;
             secUserDetails.Title = "User Account Credentials & Roles";
             secUserDetails.Paint += secUserDetails_Paint;
-            // 
-            // lblRoleGuide
-            // 
-            lblRoleGuide.BackColor = Color.FromArgb(255, 247, 250);
-            lblRoleGuide.BorderStyle = BorderStyle.FixedSingle;
-            lblRoleGuide.Font = new Font("Segoe UI", 8.5F);
-            lblRoleGuide.ForeColor = Color.FromArgb(108, 117, 125);
-            lblRoleGuide.Location = new Point(29, 808);
-            lblRoleGuide.Margin = new Padding(4, 0, 4, 0);
-            lblRoleGuide.Name = "lblRoleGuide";
-            lblRoleGuide.Padding = new Padding(11, 13, 11, 13);
-            lblRoleGuide.Size = new Size(492, 165);
-            lblRoleGuide.TabIndex = 16;
-            lblRoleGuide.Text = "ROLE HIERARCHY GUIDE:\n• Admin: Full system control, users & config.\n• Librarian: Catalog management, circulation, returns.\n• User: Self-service catalog search & my loans.";
-            lblRoleGuide.Click += lblRoleGuide_Click;
             // 
             // btnClear
             // 

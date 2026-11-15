@@ -13,7 +13,6 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button btnBorrowReturn;
         private System.Windows.Forms.Button btnHistory;
         private System.Windows.Forms.Button btnUsers;
-        private System.Windows.Forms.Button btnScanQrSidebar;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Panel pnlTopBar;
         private System.Windows.Forms.Label lblPageTitle;
@@ -43,7 +42,6 @@ namespace LibraryManagementSystem
         private void InitializeComponent()
         {
             pnlSidebar = new Panel();
-            btnScanQrSidebar = new Button();
             btnUsers = new Button();
             btnHistory = new Button();
             btnBorrowReturn = new Button();
@@ -81,7 +79,6 @@ namespace LibraryManagementSystem
             // pnlSidebar
             // 
             pnlSidebar.BackColor = Color.FromArgb(255, 224, 192);
-            pnlSidebar.Controls.Add(btnScanQrSidebar);
             pnlSidebar.Controls.Add(btnUsers);
             pnlSidebar.Controls.Add(btnHistory);
             pnlSidebar.Controls.Add(btnBorrowReturn);
@@ -97,21 +94,6 @@ namespace LibraryManagementSystem
             pnlSidebar.Name = "pnlSidebar";
             pnlSidebar.Size = new Size(343, 1170);
             pnlSidebar.TabIndex = 0;
-            // 
-            // btnScanQrSidebar
-            // 
-            btnScanQrSidebar.BackColor = Color.FromArgb(253, 237, 242);
-            btnScanQrSidebar.FlatAppearance.BorderSize = 0;
-            btnScanQrSidebar.FlatStyle = FlatStyle.Flat;
-            btnScanQrSidebar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnScanQrSidebar.ForeColor = Color.FromArgb(173, 20, 87);
-            btnScanQrSidebar.Location = new Point(15, 415);
-            btnScanQrSidebar.Margin = new Padding(4, 5, 4, 5);
-            btnScanQrSidebar.Name = "btnScanQrSidebar";
-            btnScanQrSidebar.Size = new Size(312, 52);
-            btnScanQrSidebar.TabIndex = 10;
-            btnScanQrSidebar.Text = "📷 Scan Book QR Code";
-            btnScanQrSidebar.UseVisualStyleBackColor = false;
             // 
             // btnUsers
             // 

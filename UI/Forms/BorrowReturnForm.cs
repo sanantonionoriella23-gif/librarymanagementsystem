@@ -84,10 +84,6 @@ namespace LibraryManagementSystem
         private void VerifyMember()
         {
             string input = txtIssueMemberCode.Text.Trim();
-            if (input.StartsWith("MEMBER:", StringComparison.OrdinalIgnoreCase))
-            {
-                input = input.Substring("MEMBER:".Length).Trim();
-            }
 
             if (string.IsNullOrEmpty(input))
             {
@@ -111,10 +107,6 @@ namespace LibraryManagementSystem
         private void VerifyBook()
         {
             string input = txtIssueIsbn.Text.Trim();
-            if (input.StartsWith("ISBN:", StringComparison.OrdinalIgnoreCase))
-            {
-                input = input.Substring("ISBN:".Length).Trim();
-            }
 
             if (string.IsNullOrEmpty(input))
             {

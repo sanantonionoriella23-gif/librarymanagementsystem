@@ -11,7 +11,6 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.ComboBox cmbCategoryFilter;
         private System.Windows.Forms.Label lblCatFilter;
-        private System.Windows.Forms.Button btnScanQr;
         private System.Windows.Forms.DataGridView dgvBooks;
         private LibraryManagementSystem.SectionBox secBookDetails;
         private System.Windows.Forms.Label lblIsbn;
@@ -37,9 +36,6 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.PictureBox picQr;
-        private System.Windows.Forms.Label lblQr;
-        private System.Windows.Forms.Button btnSaveQr;
         private System.Windows.Forms.Button btnPrintSpine;
 
         protected override void Dispose(bool disposing)
@@ -57,7 +53,6 @@ namespace LibraryManagementSystem
             btnClose = new Button();
             lblTitle = new Label();
             pnlFilter = new Panel();
-            btnScanQr = new Button();
             cmbCategoryFilter = new ComboBox();
             lblCatFilter = new Label();
             txtSearch = new TextBox();
@@ -65,9 +60,6 @@ namespace LibraryManagementSystem
             dgvBooks = new DataGridView();
             secBookDetails = new SectionBox();
             btnPrintSpine = new Button();
-            btnSaveQr = new Button();
-            lblQr = new Label();
-            picQr = new PictureBox();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
@@ -95,7 +87,6 @@ namespace LibraryManagementSystem
             pnlFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBooks).BeginInit();
             secBookDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)picQr).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numAvailableCopies).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numTotalCopies).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numYear).BeginInit();
@@ -145,7 +136,6 @@ namespace LibraryManagementSystem
             // pnlFilter
             // 
             pnlFilter.BackColor = Color.White;
-            pnlFilter.Controls.Add(btnScanQr);
             pnlFilter.Controls.Add(cmbCategoryFilter);
             pnlFilter.Controls.Add(lblCatFilter);
             pnlFilter.Controls.Add(txtSearch);
@@ -156,22 +146,6 @@ namespace LibraryManagementSystem
             pnlFilter.Name = "pnlFilter";
             pnlFilter.Size = new Size(1714, 83);
             pnlFilter.TabIndex = 1;
-            // 
-            // btnScanQr
-            // 
-            btnScanQr.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnScanQr.BackColor = Color.FromArgb(233, 30, 99);
-            btnScanQr.FlatAppearance.BorderSize = 0;
-            btnScanQr.FlatStyle = FlatStyle.Flat;
-            btnScanQr.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnScanQr.ForeColor = Color.White;
-            btnScanQr.Location = new Point(1471, 15);
-            btnScanQr.Margin = new Padding(4, 5, 4, 5);
-            btnScanQr.Name = "btnScanQr";
-            btnScanQr.Size = new Size(214, 53);
-            btnScanQr.TabIndex = 4;
-            btnScanQr.Text = "📷 Scan Book QR";
-            btnScanQr.UseVisualStyleBackColor = false;
             // 
             // cmbCategoryFilter
             // 
@@ -235,9 +209,6 @@ namespace LibraryManagementSystem
             secBookDetails.BackColor = Color.White;
             secBookDetails.BorderRadius = 12;
             secBookDetails.Controls.Add(btnPrintSpine);
-            secBookDetails.Controls.Add(btnSaveQr);
-            secBookDetails.Controls.Add(lblQr);
-            secBookDetails.Controls.Add(picQr);
             secBookDetails.Controls.Add(btnClear);
             secBookDetails.Controls.Add(btnDelete);
             secBookDetails.Controls.Add(btnUpdate);
@@ -277,51 +248,13 @@ namespace LibraryManagementSystem
             btnPrintSpine.FlatStyle = FlatStyle.Flat;
             btnPrintSpine.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
             btnPrintSpine.ForeColor = Color.FromArgb(194, 24, 91);
-            btnPrintSpine.Location = new Point(364, 625);
+            btnPrintSpine.Location = new Point(364, 575);
             btnPrintSpine.Margin = new Padding(4, 5, 4, 5);
             btnPrintSpine.Name = "btnPrintSpine";
             btnPrintSpine.Size = new Size(157, 40);
             btnPrintSpine.TabIndex = 25;
             btnPrintSpine.Text = "🖨️ Spine Label";
             btnPrintSpine.UseVisualStyleBackColor = false;
-            // 
-            // btnSaveQr
-            // 
-            btnSaveQr.BackColor = Color.FromArgb(252, 228, 236);
-            btnSaveQr.FlatStyle = FlatStyle.Flat;
-            btnSaveQr.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
-            btnSaveQr.ForeColor = Color.FromArgb(194, 24, 91);
-            btnSaveQr.Location = new Point(364, 575);
-            btnSaveQr.Margin = new Padding(4, 5, 4, 5);
-            btnSaveQr.Name = "btnSaveQr";
-            btnSaveQr.Size = new Size(157, 40);
-            btnSaveQr.TabIndex = 24;
-            btnSaveQr.Text = "Save QR Image";
-            btnSaveQr.UseVisualStyleBackColor = false;
-            // 
-            // lblQr
-            // 
-            lblQr.AutoSize = true;
-            lblQr.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
-            lblQr.ForeColor = Color.FromArgb(43, 45, 66);
-            lblQr.Location = new Point(371, 367);
-            lblQr.Margin = new Padding(4, 0, 4, 0);
-            lblQr.Name = "lblQr";
-            lblQr.Size = new Size(129, 23);
-            lblQr.TabIndex = 23;
-            lblQr.Text = "ISBN QR Code:";
-            // 
-            // picQr
-            // 
-            picQr.BackColor = Color.White;
-            picQr.BorderStyle = BorderStyle.FixedSingle;
-            picQr.Location = new Point(371, 400);
-            picQr.Margin = new Padding(4, 5, 4, 5);
-            picQr.Name = "picQr";
-            picQr.Size = new Size(142, 165);
-            picQr.SizeMode = PictureBoxSizeMode.Zoom;
-            picQr.TabIndex = 22;
-            picQr.TabStop = false;
             // 
             // btnClear
             // 
@@ -611,7 +544,6 @@ namespace LibraryManagementSystem
             ((System.ComponentModel.ISupportInitialize)dgvBooks).EndInit();
             secBookDetails.ResumeLayout(false);
             secBookDetails.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)picQr).EndInit();
             ((System.ComponentModel.ISupportInitialize)numAvailableCopies).EndInit();
             ((System.ComponentModel.ISupportInitialize)numTotalCopies).EndInit();
             ((System.ComponentModel.ISupportInitialize)numYear).EndInit();

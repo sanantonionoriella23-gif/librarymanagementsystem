@@ -30,9 +30,6 @@ namespace LibraryManagementSystem
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.PictureBox picMemberQr;
-        private System.Windows.Forms.Label lblCardPreview;
-        private System.Windows.Forms.Button btnSaveBadge;
 
         protected override void Dispose(bool disposing)
         {
@@ -53,9 +50,6 @@ namespace LibraryManagementSystem
             this.lblSearch = new System.Windows.Forms.Label();
             this.dgvMembers = new System.Windows.Forms.DataGridView();
             this.secMemberDetails = new LibraryManagementSystem.SectionBox();
-            this.btnSaveBadge = new System.Windows.Forms.Button();
-            this.lblCardPreview = new System.Windows.Forms.Label();
-            this.picMemberQr = new System.Windows.Forms.PictureBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -79,7 +73,6 @@ namespace LibraryManagementSystem
             this.pnlFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembers)).BeginInit();
             this.secMemberDetails.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picMemberQr)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlTop
@@ -166,9 +159,6 @@ namespace LibraryManagementSystem
             this.secMemberDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.secMemberDetails.BorderRadius = 12;
-            this.secMemberDetails.Controls.Add(this.btnSaveBadge);
-            this.secMemberDetails.Controls.Add(this.lblCardPreview);
-            this.secMemberDetails.Controls.Add(this.picMemberQr);
             this.secMemberDetails.Controls.Add(this.btnClear);
             this.secMemberDetails.Controls.Add(this.btnDelete);
             this.secMemberDetails.Controls.Add(this.btnUpdate);
@@ -195,42 +185,7 @@ namespace LibraryManagementSystem
             this.secMemberDetails.ShowHeaderBar = true;
             this.secMemberDetails.Size = new System.Drawing.Size(385, 576);
             this.secMemberDetails.TabIndex = 3;
-            this.secMemberDetails.Title = "Member Profile & Card Badge";
-            // 
-            // btnSaveBadge
-            // 
-            this.btnSaveBadge.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(228)))), ((int)(((byte)(236)))));
-            this.btnSaveBadge.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveBadge.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.btnSaveBadge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(24)))), ((int)(((byte)(91)))));
-            this.btnSaveBadge.Location = new System.Drawing.Point(255, 365);
-            this.btnSaveBadge.Name = "btnSaveBadge";
-            this.btnSaveBadge.Size = new System.Drawing.Size(110, 24);
-            this.btnSaveBadge.TabIndex = 21;
-            this.btnSaveBadge.Text = "Save Member QR";
-            this.btnSaveBadge.UseVisualStyleBackColor = false;
-            // 
-            // lblCardPreview
-            // 
-            this.lblCardPreview.AutoSize = true;
-            this.lblCardPreview.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
-            this.lblCardPreview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(45)))), ((int)(((byte)(66)))));
-            this.lblCardPreview.Location = new System.Drawing.Point(255, 230);
-            this.lblCardPreview.Name = "lblCardPreview";
-            this.lblCardPreview.Size = new System.Drawing.Size(89, 15);
-            this.lblCardPreview.TabIndex = 20;
-            this.lblCardPreview.Text = "Member QR ID:";
-            // 
-            // picMemberQr
-            // 
-            this.picMemberQr.BackColor = System.Drawing.Color.White;
-            this.picMemberQr.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picMemberQr.Location = new System.Drawing.Point(255, 250);
-            this.picMemberQr.Name = "picMemberQr";
-            this.picMemberQr.Size = new System.Drawing.Size(110, 110);
-            this.picMemberQr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picMemberQr.TabIndex = 19;
-            this.picMemberQr.TabStop = false;
+            this.secMemberDetails.Title = "Member Profile & Details";
             // 
             // btnClear
             // 
@@ -458,7 +413,6 @@ namespace LibraryManagementSystem
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembers)).EndInit();
             this.secMemberDetails.ResumeLayout(false);
             this.secMemberDetails.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picMemberQr)).EndInit();
             this.ResumeLayout(false);
         }
     }

@@ -22,7 +22,6 @@ namespace LibraryManagementSystem
         private void ApplyCustomStyling()
         {
             Theme.StyleDataGridView(dgvRecent);
-            Theme.StyleSecondaryButton(btnScanQrSidebar);
 
             // Solid top bar styling with subtle bottom divider line
             pnlTopBar.BackColor = Color.White;
@@ -87,7 +86,6 @@ namespace LibraryManagementSystem
                 btnMembers.Size = navBtnSize;
                 btnHistory.Size = navBtnSize;
                 btnUsers.Size = navBtnSize;
-                btnScanQrSidebar.Size = new Size(312, 50);
 
                 if (user.Role == UserRole.User)
                 {
@@ -101,7 +99,6 @@ namespace LibraryManagementSystem
                     btnDashboard.Location = new Point(15, 25);
                     btnBooks.Location = new Point(15, 87);
                     btnHistory.Location = new Point(15, 149);
-                    btnScanQrSidebar.Location = new Point(15, 230);
                 }
                 else if (user.Role == UserRole.Librarian)
                 {
@@ -119,7 +116,6 @@ namespace LibraryManagementSystem
                     btnBorrowReturn.Location = new Point(15, 149);
                     btnMembers.Location = new Point(15, 211);
                     btnHistory.Location = new Point(15, 273);
-                    btnScanQrSidebar.Location = new Point(15, 355);
                 }
                 else
                 {
@@ -139,7 +135,6 @@ namespace LibraryManagementSystem
                     btnMembers.Location = new Point(15, 211);
                     btnHistory.Location = new Point(15, 273);
                     btnUsers.Location = new Point(15, 335);
-                    btnScanQrSidebar.Location = new Point(15, 415);
                 }
 
                 ConfigureDashboardLayout(user.Role);
@@ -456,29 +451,6 @@ namespace LibraryManagementSystem
             btnUsers.Click += BtnUsers_Click;
             btnLogout.Click += BtnLogout_Click;
             btnRefreshStats.Click += (s, e) => LoadDashboard();
-
-            // Quick QR Scanner on Sidebar
-            btnScanQrSidebar.Click += (s, e) =>
-            {
-                using (var scanner = new QrScannerForm())
-                {
-                    if (scanner.ShowDialog() == DialogResult.OK)
-                    {
-                        if (scanner.BookWasBorrowed)
-                        {
-                            LoadDashboard();
-                        }
-                        else if (scanner.OpenCirculation)
-                        {
-                            OpenModule(new BorrowReturnForm());
-                        }
-                        else if (scanner.SelectedBook != null)
-                        {
-                            OpenModule(new BooksForm(scanner.SelectedBook.Id));
-                        }
-                    }
-                }
-            };
 
             // Interactive card navigation based on role
             cardTotalBooks.Click += (s, e) =>

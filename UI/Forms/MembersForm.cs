@@ -31,7 +31,6 @@ namespace LibraryManagementSystem
             Theme.StylePrimaryButton(btnAdd);
             Theme.StyleSecondaryButton(btnUpdate);
             Theme.StyleSecondaryButton(btnClear);
-            Theme.StyleSecondaryButton(btnSaveBadge);
             Theme.StyleSecondaryButton(btnGenerateCode);
 
             pnlTop.Paint += (s, e) =>
@@ -139,11 +138,7 @@ namespace LibraryManagementSystem
             btnGenerateCode.Click += (s, e) =>
             {
                 txtMemberCode.Text = $"LIB-M{DateTime.Now:MMddHHmm}";
-                RefreshQrBadge();
             };
-
-            txtMemberCode.TextChanged += (s, e) => RefreshQrBadge();
-            btnSaveBadge.Click += (s, e) => SaveBadgeImage();
         }
 
         private void PopulateFields(Member member)
@@ -157,23 +152,6 @@ namespace LibraryManagementSystem
 
             if (cmbMemberType.Items.Contains(member.MemberType)) cmbMemberType.SelectedItem = member.MemberType;
             if (cmbStatus.Items.Contains(member.Status)) cmbStatus.SelectedItem = member.Status;
-
-            RefreshQrBadge();
-        }
-
-        private void RefreshQrBadge()
-        {
-            string code = txtMemberCode.Text.Trim();
-            if (!string.IsNullOrEmpty(code))
-            {
-                picMemberQr.Image?.Dispose();
-                picMemberQr.Image = QrCodes.GenerateQrCode($"MEMBER:{code}");
-            }
-            else
-            {
-                picMemberQr.Image?.Dispose();
-                picMemberQr.Image = null;
-            }
         }
 
         private void SaveBadgeImage()
@@ -270,14 +248,20 @@ namespace LibraryManagementSystem
                     g.DrawString($"Phone: {txtPhone.Text.Trim()}", contactFont, contactBrush, new PointF(130, 168));
                 }
 
-                // Member QR Code at right side
-                Bitmap qr = QrCodes.GenerateQrCode($"MEMBER:{txtMemberCode.Text.Trim()}", 3);
-                g.DrawImage(qr, width - 135, 75, 115, 115);
-
-                using (Font qrLblFont = new Font("Segoe UI", 7F, FontStyle.Bold))
-                using (SolidBrush qrLblBrush = new SolidBrush(Theme.TextSecondary))
+                // Member ID Badge at right side
+                using (SolidBrush idBg = new SolidBrush(Color.FromArgb(253, 237, 242)))
+                using (Pen idBorderPen = new Pen(Theme.PrimaryDark, 1.5f))
                 {
-                    g.DrawString("SCAN AT DESK", qrLblFont, qrLblBrush, new PointF(width - 120, 195));
+                    Rectangle idBox = new Rectangle(width - 135, 75, 115, 115);
+                    g.FillRectangle(idBg, idBox);
+                    g.DrawRectangle(idBorderPen, idBox);
+                }
+
+                using (Font idBadgeFont = new Font("Segoe UI", 9F, FontStyle.Bold))
+                using (SolidBrush idBadgeBrush = new SolidBrush(Theme.PrimaryDark))
+                {
+                    g.DrawString("OFFICIAL", idBadgeFont, idBadgeBrush, new PointF(width - 118, 105));
+                    g.DrawString("MEMBER", idBadgeFont, idBadgeBrush, new PointF(width - 118, 125));
                 }
 
                 // Magnetic / Barcode Footer Stripe
@@ -334,8 +318,6 @@ namespace LibraryManagementSystem
             txtAddress.Clear();
             cmbMemberType.SelectedIndex = 0;
             cmbStatus.SelectedIndex = 0;
-            picMemberQr.Image?.Dispose();
-            picMemberQr.Image = null;
         }
 
         private void PerformAddMember()

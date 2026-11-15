@@ -56,7 +56,7 @@ namespace LibraryManagementSystem
             // 
             // lblError
             // 
-            lblError.BackColor = Color.WhiteSmoke;
+            lblError.BackColor = Color.Transparent;
             lblError.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblError.ForeColor = Color.FromArgb(255, 192, 128);
             lblError.Location = new Point(64, 484);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -37,10 +37,8 @@ namespace LibraryManagementSystem
             Theme.StyleDataGridView(dgvBooks);
             Theme.StylePrimaryButton(btnAdd);
             Theme.StylePrimaryButton(btnBorrowBook);
-            Theme.StylePrimaryButton(btnScanQr);
             Theme.StyleSecondaryButton(btnUpdate);
             Theme.StyleSecondaryButton(btnClear);
-            Theme.StyleSecondaryButton(btnSaveQr);
             Theme.StyleSecondaryButton(btnPrintSpine);
 
             pnlTop.Paint += (s, e) =>
@@ -200,22 +198,7 @@ namespace LibraryManagementSystem
             btnUpdate.Click += (s, e) => PerformUpdateBook();
             btnDelete.Click += (s, e) => PerformDeleteBook();
             btnClear.Click += (s, e) => ClearFields();
-
-            txtIsbn.TextChanged += (s, e) => RefreshQrCode();
-            btnSaveQr.Click += (s, e) => SaveQrImage();
             btnPrintSpine.Click += (s, e) => PrintSpineLabel();
-
-            // QR Scanner Integration
-            btnScanQr.Click += (s, e) =>
-            {
-                using (var scanner = new QrScannerForm())
-                {
-                    if (scanner.ShowDialog() == DialogResult.OK && scanner.SelectedBook != null)
-                    {
-                        SelectBookInGrid(scanner.SelectedBook.Id);
-                    }
-                }
-            };
         }
 
         private void SelectBookInGrid(int bookId)
@@ -258,8 +241,6 @@ namespace LibraryManagementSystem
                 cmbCategory.SelectedItem = book.Category;
             }
 
-            RefreshQrCode();
-
             if (Session.IsUser)
             {
                 if (book.AvailableCopies > 0)
@@ -273,41 +254,6 @@ namespace LibraryManagementSystem
                     btnBorrowBook.Enabled = false;
                     btnBorrowBook.Text = "✗ All Copies Checked Out";
                     btnBorrowBook.BackColor = Color.FromArgb(156, 163, 175);
-                }
-            }
-        }
-
-        private void RefreshQrCode()
-        {
-            string isbn = txtIsbn.Text.Trim();
-            if (!string.IsNullOrEmpty(isbn))
-            {
-                picQr.Image?.Dispose();
-                picQr.Image = QrCodes.GenerateQrCode($"ISBN:{isbn}");
-            }
-            else
-            {
-                picQr.Image?.Dispose();
-                picQr.Image = null;
-            }
-        }
-
-        private void SaveQrImage()
-        {
-            if (picQr.Image == null)
-            {
-                MessageBox.Show("No QR code available to save.", "Save QR", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "PNG Image (*.png)|*.png|JPEG Image (*.jpg)|*.jpg";
-                sfd.FileName = $"QR_ISBN_{txtIsbn.Text.Trim().Replace("-", "_")}.png";
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    picQr.Image.Save(sfd.FileName, ImageFormat.Png);
-                    MessageBox.Show("QR code successfully saved to:\n" + sfd.FileName, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -390,16 +336,20 @@ namespace LibraryManagementSystem
                 }
 
                
-                Bitmap qr = QrCodes.GenerateQrCode($"ISBN:{txtIsbn.Text.Trim()}", 4);
-                g.DrawImage(qr, (width - 160) / 2, 220, 160, 160);
+                using (SolidBrush tagBg = new SolidBrush(Color.FromArgb(245, 247, 250)))
+                using (Pen tagPen = new Pen(Theme.BorderSubtle, 1.5f))
+                {
+                    Rectangle tagBox = new Rectangle(18, 230, width - 36, 120);
+                    g.FillRectangle(tagBg, tagBox);
+                    g.DrawRectangle(tagPen, tagBox);
+                }
 
-                
-                using (Font isbnFont = new Font("Segoe UI", 9F, FontStyle.Bold))
+                using (Font isbnFont = new Font("Segoe UI", 12F, FontStyle.Bold))
                 using (SolidBrush isbnBrush = new SolidBrush(Theme.TextPrimary))
                 {
                     string isbnStr = $"ISBN: {txtIsbn.Text.Trim()}";
                     SizeF sz = g.MeasureString(isbnStr, isbnFont);
-                    g.DrawString(isbnStr, isbnFont, isbnBrush, (width - sz.Width) / 2, 395);
+                    g.DrawString(isbnStr, isbnFont, isbnBrush, (width - sz.Width) / 2, 275);
                 }
 
                
@@ -434,8 +384,6 @@ namespace LibraryManagementSystem
             numTotalCopies.Value = 1;
             numAvailableCopies.Value = 1;
             if (cmbCategory.Items.Count > 0) cmbCategory.SelectedIndex = 0;
-            picQr.Image?.Dispose();
-            picQr.Image = null;
 
             if (Session.IsUser)
             {
