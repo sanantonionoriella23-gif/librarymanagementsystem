@@ -329,7 +329,7 @@ namespace LibraryManagementSystem
             tabIssue.Padding = new Padding(29, 33, 29, 33);
             tabIssue.Size = new Size(1706, 1029);
             tabIssue.TabIndex = 0;
-            tabIssue.Text = "  Issue Book ";
+            tabIssue.Text = "  Borrow Book  ";
             // 
             // secIssue
             // 
@@ -369,7 +369,7 @@ namespace LibraryManagementSystem
             lblIssueMember.Name = "lblIssueMember";
             lblIssueMember.Size = new Size(235, 25);
             lblIssueMember.TabIndex = 0;
-            lblIssueMember.Text = "Member Code or QR Scan:";
+            lblIssueMember.Text = "Member Code or Name:";
             // 
             // txtIssueMemberCode
             // 
@@ -377,7 +377,7 @@ namespace LibraryManagementSystem
             txtIssueMemberCode.Location = new Point(43, 117);
             txtIssueMemberCode.Margin = new Padding(4, 5, 4, 5);
             txtIssueMemberCode.Name = "txtIssueMemberCode";
-            txtIssueMemberCode.PlaceholderText = "Enter or scan Member Code";
+            txtIssueMemberCode.PlaceholderText = "Enter Member Code (e.g. LIB-M1001) or Name...";
             txtIssueMemberCode.Size = new Size(698, 34);
             txtIssueMemberCode.TabIndex = 1;
             // 
@@ -407,7 +407,7 @@ namespace LibraryManagementSystem
             lblMemberInfo.Padding = new Padding(14, 17, 14, 17);
             lblMemberInfo.Size = new Size(956, 90);
             lblMemberInfo.TabIndex = 3;
-            lblMemberInfo.Text = "No member selected. Enter Member Code and click Verify.";
+            lblMemberInfo.Text = "No member selected. Enter Member Code or Name and click Verify.";
             // 
             // lblIssueBook
             // 
@@ -417,9 +417,9 @@ namespace LibraryManagementSystem
             lblIssueBook.Location = new Point(43, 300);
             lblIssueBook.Margin = new Padding(4, 0, 4, 0);
             lblIssueBook.Name = "lblIssueBook";
-            lblIssueBook.Size = new Size(206, 25);
+            lblIssueBook.Size = new Size(180, 25);
             lblIssueBook.TabIndex = 4;
-            lblIssueBook.Text = "Book ISBN or Barcode:";
+            lblIssueBook.Text = "Book ISBN or Title:";
             // 
             // txtIssueIsbn
             // 
@@ -427,7 +427,7 @@ namespace LibraryManagementSystem
             txtIssueIsbn.Location = new Point(43, 337);
             txtIssueIsbn.Margin = new Padding(4, 5, 4, 5);
             txtIssueIsbn.Name = "txtIssueIsbn";
-            txtIssueIsbn.PlaceholderText = "Enter or scan Book ISBN ";
+            txtIssueIsbn.PlaceholderText = "Enter ISBN (e.g. 978-0132350884) or Book Title...";
             txtIssueIsbn.Size = new Size(698, 34);
             txtIssueIsbn.TabIndex = 5;
             // 
@@ -457,7 +457,7 @@ namespace LibraryManagementSystem
             lblBookInfo.Padding = new Padding(14, 17, 14, 17);
             lblBookInfo.Size = new Size(956, 90);
             lblBookInfo.TabIndex = 7;
-            lblBookInfo.Text = "No book selected. Enter ISBN and click Verify.";
+            lblBookInfo.Text = "No book selected. Enter ISBN or Title and click Verify.";
             // 
             // lblOverdueDate
             // 
@@ -555,7 +555,7 @@ namespace LibraryManagementSystem
             MinimumSize = new Size(1419, 963);
             Name = "BorrowReturnForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Library Management System - Circulation Desk";
+            Text = "Library Management System - Borrow & Return";
             pnlTop.ResumeLayout(false);
             pnlTop.PerformLayout();
             tabReturn.ResumeLayout(false);

@@ -87,11 +87,20 @@ namespace LibraryManagementSystem
 
             if (string.IsNullOrEmpty(input))
             {
-                MessageBox.Show("Please enter a member code.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please enter a member code or name.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             _verifiedMember = Database.GetMemberByCode(input);
+            if (_verifiedMember == null)
+            {
+                var matches = Database.GetMembers(input);
+                if (matches != null && matches.Count > 0)
+                {
+                    _verifiedMember = matches[0];
+                }
+            }
+
             if (_verifiedMember != null)
             {
                 lblMemberInfo.ForeColor = Theme.TextPrimary;
@@ -100,7 +109,7 @@ namespace LibraryManagementSystem
             else
             {
                 lblMemberInfo.ForeColor = Theme.Danger;
-                lblMemberInfo.Text = $"✗ Member '{input}' not found. Please register or verify the code.";
+                lblMemberInfo.Text = $"✗ Member '{input}' not found. Please verify member code or name.";
             }
         }
 
@@ -110,11 +119,20 @@ namespace LibraryManagementSystem
 
             if (string.IsNullOrEmpty(input))
             {
-                MessageBox.Show("Please enter an ISBN.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please enter an ISBN or book title.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             _verifiedBook = Database.GetBookByIsbn(input);
+            if (_verifiedBook == null)
+            {
+                var matches = Database.GetBooks(input);
+                if (matches != null && matches.Count > 0)
+                {
+                    _verifiedBook = matches[0];
+                }
+            }
+
             if (_verifiedBook != null)
             {
                 Color statusColor = _verifiedBook.AvailableCopies > 0 ? Theme.Success : Theme.Danger;
@@ -124,7 +142,7 @@ namespace LibraryManagementSystem
             else
             {
                 lblBookInfo.ForeColor = Theme.Danger;
-                lblBookInfo.Text = $"✗ Book with ISBN '{input}' not found in catalog.";
+                lblBookInfo.Text = $"✗ Book '{input}' not found in catalog.";
             }
         }
 
@@ -165,9 +183,9 @@ namespace LibraryManagementSystem
                 txtIssueNotes.Clear();
                 dtpOverdueDate.Value = DateTime.Today.AddDays(14);
                 UpdateDueDatePreview();
-                lblMemberInfo.Text = "No member selected. Enter Member Code and click Verify.";
+                lblMemberInfo.Text = "No member selected. Enter Member Code or Name and click Verify.";
                 lblMemberInfo.ForeColor = Theme.TextSecondary;
-                lblBookInfo.Text = "No book selected. Enter ISBN and click Verify.";
+                lblBookInfo.Text = "No book selected. Enter ISBN or Title and click Verify.";
                 lblBookInfo.ForeColor = Theme.TextSecondary;
 
                 LoadActiveLoans();
