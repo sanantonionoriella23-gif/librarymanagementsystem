@@ -91,36 +91,25 @@ namespace LibraryManagementSystem
 
         public static void StylePrimaryButton(Button btn)
         {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.BackColor = PrimaryDark;
-            btn.ForeColor = Color.White;
-            btn.Font = BodyBold;
             btn.Cursor = Cursors.Hand;
-            btn.Height = Math.Max(btn.Height, 36);
+            Color originalBack = btn.BackColor;
 
-            btn.MouseEnter += (s, e) => btn.BackColor = Primary;
-            btn.MouseLeave += (s, e) => btn.BackColor = PrimaryDark;
+            btn.MouseEnter += (s, e) => btn.BackColor = ControlPaint.Light(originalBack, 0.15f);
+            btn.MouseLeave += (s, e) => btn.BackColor = originalBack;
         }
 
         public static void StyleSecondaryButton(Button btn)
         {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 1;
-            btn.FlatAppearance.BorderColor = Primary;
-            btn.BackColor = Color.White;
-            btn.ForeColor = PrimaryDark;
-            btn.Font = BodyBold;
             btn.Cursor = Cursors.Hand;
-            btn.Height = Math.Max(btn.Height, 36);
+            Color originalBack = btn.BackColor;
 
             btn.MouseEnter += (s, e) =>
             {
-                btn.BackColor = PrimaryLight;
+                btn.BackColor = ControlPaint.Dark(originalBack, 0.04f);
             };
             btn.MouseLeave += (s, e) =>
             {
-                btn.BackColor = Color.White;
+                btn.BackColor = originalBack;
             };
         }
 

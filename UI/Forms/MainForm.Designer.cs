@@ -98,7 +98,7 @@ namespace LibraryManagementSystem
             // btnUsers
             // 
             btnUsers.BackColor = Color.White;
-            btnUsers.FlatAppearance.BorderSize = 0;
+            btnUsers.FlatAppearance.BorderColor = Color.Maroon;
             btnUsers.FlatStyle = FlatStyle.Flat;
             btnUsers.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnUsers.ForeColor = Color.FromArgb(30, 41, 59);
@@ -115,7 +115,7 @@ namespace LibraryManagementSystem
             // btnHistory
             // 
             btnHistory.BackColor = Color.White;
-            btnHistory.FlatAppearance.BorderSize = 0;
+            btnHistory.FlatAppearance.BorderColor = Color.Maroon;
             btnHistory.FlatStyle = FlatStyle.Flat;
             btnHistory.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnHistory.ForeColor = Color.FromArgb(30, 41, 59);
@@ -132,7 +132,7 @@ namespace LibraryManagementSystem
             // btnBorrowReturn
             // 
             btnBorrowReturn.BackColor = Color.White;
-            btnBorrowReturn.FlatAppearance.BorderSize = 0;
+            btnBorrowReturn.FlatAppearance.BorderColor = Color.FromArgb(192, 0, 0);
             btnBorrowReturn.FlatStyle = FlatStyle.Flat;
             btnBorrowReturn.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnBorrowReturn.ForeColor = Color.FromArgb(30, 41, 59);
@@ -150,7 +150,7 @@ namespace LibraryManagementSystem
             // btnMembers
             // 
             btnMembers.BackColor = Color.White;
-            btnMembers.FlatAppearance.BorderSize = 0;
+            btnMembers.FlatAppearance.BorderColor = Color.Maroon;
             btnMembers.FlatStyle = FlatStyle.Flat;
             btnMembers.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnMembers.ForeColor = Color.FromArgb(30, 41, 59);
@@ -167,7 +167,7 @@ namespace LibraryManagementSystem
             // btnBooks
             // 
             btnBooks.BackColor = Color.White;
-            btnBooks.FlatAppearance.BorderSize = 0;
+            btnBooks.FlatAppearance.BorderColor = Color.Maroon;
             btnBooks.FlatStyle = FlatStyle.Flat;
             btnBooks.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnBooks.ForeColor = Color.FromArgb(30, 41, 59);
@@ -184,7 +184,6 @@ namespace LibraryManagementSystem
             // btnDashboard
             // 
             btnDashboard.BackColor = Color.White;
-            btnDashboard.FlatAppearance.BorderSize = 0;
             btnDashboard.FlatStyle = FlatStyle.Flat;
             btnDashboard.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnDashboard.ForeColor = Color.FromArgb(173, 20, 87);
@@ -240,8 +239,9 @@ namespace LibraryManagementSystem
             // 
             btnLogout.BackColor = Color.FromArgb(254, 242, 242);
             btnLogout.Dock = DockStyle.Fill;
-            btnLogout.FlatAppearance.BorderSize = 0;
-            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.FlatAppearance.BorderColor = Color.Maroon;
+            btnLogout.FlatAppearance.BorderSize = 2;
+            btnLogout.FlatStyle = FlatStyle.Popup;
             btnLogout.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
             btnLogout.ForeColor = Color.FromArgb(185, 28, 28);
             btnLogout.Location = new Point(17, 17);
@@ -254,7 +254,8 @@ namespace LibraryManagementSystem
             // 
             // pnlTopBar
             // 
-            pnlTopBar.BackColor = Color.White;
+            pnlTopBar.BackColor = Color.Transparent;
+            pnlTopBar.BackgroundImage = Properties.Resources.lib;
             pnlTopBar.Controls.Add(btnRefreshStats);
             pnlTopBar.Controls.Add(lblCurrentUser);
             pnlTopBar.Controls.Add(lblPageTitle);
@@ -270,7 +271,8 @@ namespace LibraryManagementSystem
             // 
             btnRefreshStats.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnRefreshStats.BackColor = Color.FromArgb(253, 237, 242);
-            btnRefreshStats.FlatAppearance.BorderSize = 0;
+            btnRefreshStats.FlatAppearance.BorderColor = Color.Maroon;
+            btnRefreshStats.FlatAppearance.BorderSize = 2;
             btnRefreshStats.FlatStyle = FlatStyle.Flat;
             btnRefreshStats.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnRefreshStats.ForeColor = Color.FromArgb(173, 20, 87);
@@ -299,9 +301,10 @@ namespace LibraryManagementSystem
             // lblPageTitle
             // 
             lblPageTitle.AutoSize = true;
-            lblPageTitle.BackColor = Color.Transparent;
+            lblPageTitle.BackColor = Color.PapayaWhip;
+            lblPageTitle.FlatStyle = FlatStyle.Flat;
             lblPageTitle.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
-            lblPageTitle.ForeColor = Color.FromArgb(173, 20, 87);
+            lblPageTitle.ForeColor = Color.Maroon;
             lblPageTitle.Location = new Point(25, 17);
             lblPageTitle.Margin = new Padding(4, 0, 4, 0);
             lblPageTitle.Name = "lblPageTitle";
@@ -334,7 +337,7 @@ namespace LibraryManagementSystem
             // 
             // secRecentActivity
             // 
-            secRecentActivity.BackColor = Color.White;
+            secRecentActivity.BackColor = Color.Transparent;
             secRecentActivity.BorderRadius = 12;
             secRecentActivity.Controls.Add(dgvRecent);
             secRecentActivity.Dock = DockStyle.Fill;
@@ -350,7 +353,7 @@ namespace LibraryManagementSystem
             // 
             // dgvRecent
             // 
-            dgvRecent.BackgroundColor = Color.White;
+            dgvRecent.BackgroundColor = Color.PapayaWhip;
             dgvRecent.BorderStyle = BorderStyle.None;
             dgvRecent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecent.Dock = DockStyle.Fill;
@@ -388,7 +391,7 @@ namespace LibraryManagementSystem
             // cardTotalBooks
             // 
             cardTotalBooks.AccentColor = Color.FromArgb(216, 27, 96);
-            cardTotalBooks.BackColor = Color.White;
+            cardTotalBooks.BackColor = Color.Transparent;
             cardTotalBooks.BorderRadius = 12;
             cardTotalBooks.Dock = DockStyle.Fill;
             cardTotalBooks.IconName = "books";
@@ -404,7 +407,7 @@ namespace LibraryManagementSystem
             // cardAvailableBooks
             // 
             cardAvailableBooks.AccentColor = Color.FromArgb(22, 101, 52);
-            cardAvailableBooks.BackColor = Color.White;
+            cardAvailableBooks.BackColor = Color.Transparent;
             cardAvailableBooks.BorderRadius = 12;
             cardAvailableBooks.Dock = DockStyle.Fill;
             cardAvailableBooks.IconName = "books";
@@ -420,7 +423,7 @@ namespace LibraryManagementSystem
             // cardBorrowedBooks
             // 
             cardBorrowedBooks.AccentColor = Color.FromArgb(233, 30, 99);
-            cardBorrowedBooks.BackColor = Color.White;
+            cardBorrowedBooks.BackColor = Color.Transparent;
             cardBorrowedBooks.BorderRadius = 12;
             cardBorrowedBooks.Dock = DockStyle.Fill;
             cardBorrowedBooks.IconName = "borrowreturn";
@@ -436,7 +439,7 @@ namespace LibraryManagementSystem
             // cardOverdueBooks
             // 
             cardOverdueBooks.AccentColor = Color.FromArgb(185, 28, 28);
-            cardOverdueBooks.BackColor = Color.White;
+            cardOverdueBooks.BackColor = Color.Transparent;
             cardOverdueBooks.BorderRadius = 12;
             cardOverdueBooks.Dock = DockStyle.Fill;
             cardOverdueBooks.IconName = "warning";
@@ -452,7 +455,7 @@ namespace LibraryManagementSystem
             // cardTotalMembers
             // 
             cardTotalMembers.AccentColor = Color.FromArgb(173, 20, 87);
-            cardTotalMembers.BackColor = Color.White;
+            cardTotalMembers.BackColor = Color.Transparent;
             cardTotalMembers.BorderRadius = 12;
             cardTotalMembers.Dock = DockStyle.Fill;
             cardTotalMembers.IconName = "members";
@@ -468,7 +471,7 @@ namespace LibraryManagementSystem
             // cardExtra
             // 
             cardExtra.AccentColor = Color.FromArgb(79, 70, 229);
-            cardExtra.BackColor = Color.White;
+            cardExtra.BackColor = Color.Transparent;
             cardExtra.BorderRadius = 12;
             cardExtra.Dock = DockStyle.Fill;
             cardExtra.IconName = "members";
