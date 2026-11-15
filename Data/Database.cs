@@ -49,38 +49,39 @@ namespace LibraryManagementSystem
 
             bool dbExists = File.Exists(_dbPath) && new FileInfo(_dbPath).Length > 0;
 
-            using (var conn = GetConnection())
+            if (!dbExists)
             {
-               
-                string[] possiblePaths = new[]
+                using (var conn = GetConnection())
                 {
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "schema.sql"),
-                    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "schema.sql"),
-                    Path.Combine(Directory.GetCurrentDirectory(), "schema.sql"),
-                    Path.Combine(Directory.GetCurrentDirectory(), "Data", "schema.sql")
-                };
-
-                string schemaSql = "";
-                foreach (var path in possiblePaths)
-                {
-                    if (File.Exists(path))
+                    string[] possiblePaths = new[]
                     {
-                        schemaSql = File.ReadAllText(path);
-                        break;
+                        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "schema.sql"),
+                        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "schema.sql"),
+                        Path.Combine(Directory.GetCurrentDirectory(), "schema.sql"),
+                        Path.Combine(Directory.GetCurrentDirectory(), "Data", "schema.sql")
+                    };
+
+                    string schemaSql = "";
+                    foreach (var path in possiblePaths)
+                    {
+                        if (File.Exists(path))
+                        {
+                            schemaSql = File.ReadAllText(path);
+                            break;
+                        }
                     }
-                }
 
-                if (!string.IsNullOrWhiteSpace(schemaSql))
-                {
-                    using (var cmd = conn.CreateCommand())
+                    if (!string.IsNullOrWhiteSpace(schemaSql))
                     {
-                        cmd.CommandText = schemaSql;
-                        cmd.ExecuteNonQuery();
+                        using (var cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = schemaSql;
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                 }
             }
 
-           
             UpdateOverdueStatuses();
         }
 
